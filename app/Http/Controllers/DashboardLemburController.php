@@ -6,7 +6,9 @@ use App\Models\Lembur;
 use Illuminate\Http\Request;
 use App\Models\Supel;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class DashboardLemburController extends Controller
 {
@@ -15,8 +17,8 @@ class DashboardLemburController extends Controller
      */
     public function index()
     {
-        return view('listlem', [
-            'lembur' => Lembur::all()
+        return view('dashboard.lemburs.index', [
+            'lembur' => Lembur::orderBy('lem_dari')->get()
         ]);
     }
 
@@ -25,8 +27,8 @@ class DashboardLemburController extends Controller
      */
     public function create()
     {
-        return view('tamblem', [
-            'supels' => Supel::all()
+        return view('dashboard.lemburs.tamblem', [
+            'supels' => Supel::where('user_id', 1)->get()
         ]);
     }
 
@@ -50,11 +52,11 @@ class DashboardLemburController extends Controller
             'lem_sampai' => Str::substr(Carbon::create(Str::substr($request->lem_tanggal, 6, 4), $bulan = Str::substr($request->lem_tanggal, 3, 2), Str::substr($request->lem_tanggal, 0, 2)), 0, 10) . " " . Carbon::parse($request->lem_sampai)->format('H:i:s'),
             'lem_maksud' => $request->lem_maksud,
             'lem_tujuan' => $request->lem_tujuan,
-            'lem_tempat' => 'Kantor Stasiun KIPM Merak',
+            'lem_tempat' => $request->lem_tempat,
             'lem_hasil' => $request->lem_hasil
         ]);
 
-        return redirect('lembur');
+        return redirect('/dashboard/lembur');
     }
 
     /**
@@ -63,9 +65,7 @@ class DashboardLemburController extends Controller
     public function show($id)
     {
         $temp = Lembur::find($id);
-        // $tgl_surat = date("d", strtotime($temp->sup_tanggal)) . ' ' . $bulan[intval(date("m", strtotime($temp->sup_tanggal)))] . ' ' . date("Y", strtotime($temp->sup_tanggal));
-
-        return view('detilslembur', [
+        return view('/dashboard/lemburs/showlem', [
             'lembur' => $temp
         ]);
     }
@@ -89,8 +89,10 @@ class DashboardLemburController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lembur $lembur)
+    public function destroy($id)
     {
-        //
+        $lembur = Lembur::find($id);
+        $lembur->delete();
+        return redirect("dashboard/lembur");
     }
 }

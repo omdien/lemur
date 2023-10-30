@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardLemburController;
+use App\Http\Controllers\DashboardSuperController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,22 @@ use App\Http\Controllers\DashboardLemburController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::resource('/lembur', DashboardLemburController::class);
+Route::get('/sweat', function () {
+    return view('cobasweat');
+});
+
+// halaman login
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
+
+// halaman dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::resource('/dashboard/lembur', DashboardLemburController::class);
+Route::resource('/dashboard/super', DashboardSuperController::class);
+
+// menghapus lembur
+Route::get('/dashboard/lembur/{lembur:id}/hapus', [DashboardLemburController::class, 'destroy'])->middleware('auth');

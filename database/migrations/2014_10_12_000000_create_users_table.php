@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('nip');
             $table->string('pangkat');
             $table->string('jabatan');
+            $table->string('img');
             $table->rememberToken();
             $table->timestamps();
         });
