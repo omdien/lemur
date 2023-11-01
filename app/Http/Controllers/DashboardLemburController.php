@@ -65,8 +65,38 @@ class DashboardLemburController extends Controller
     public function show($id)
     {
         $temp = Lembur::find($id);
+        $tanggal = '2015-06-03';
+        $day = date('D', strtotime($temp->lem_dari));
+        $dayList = array(
+            'Sun' => 'Minggu',
+            'Mon' => 'Senin',
+            'Tue' => 'Selasa',
+            'Wed' => 'Rabu',
+            'Thu' => 'Kamis',
+            'Fri' => 'Jumat',
+            'Sat' => 'Sabtu'
+        );
+        $bulan = date('m', strtotime($temp->lem_dari));
+        $bulanList = array(
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        );
+
         return view('/dashboard/lemburs/showlem', [
-            'lembur' => $temp
+            'lembur' => $temp,
+            'hari' => $dayList[$day] . ', ' . date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)) . ' Pukul ' . date('H:i', strtotime($temp->lem_dari)) . ' s/d ' . date('H:i', strtotime($temp->lem_sampai)),
+            'tglttd' => date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)),
+            'tglspl' => date('d', strtotime($temp->Supel->sup_tanggal)) . ' ' .  $bulanList[date('m', strtotime($temp->Supel->sup_tanggal))] . ' ' .  date('Y', strtotime($temp->Supel->sup_tanggal))
         ]);
     }
 

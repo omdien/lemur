@@ -91,7 +91,7 @@
                         <label for="lem_tempat"
                             class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Tempat</label>
                     </div>
-                    <div
+                    {{-- <div
                         class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                         <div class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600">
                             <div class="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
@@ -212,8 +212,14 @@
                                 class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                                 placeholder="" required>{{ old('lem_hasil', $lembur->lem_hasil) }}</textarea>
                         </div>
+                    </div> --}}
+                    <div>
+                        <div class="text-sm font-medium text-gray-500">Hasil Lembur</div>
+                        <label for="lem_hasil" class="sr-only">Hasil Lembur</label>
+                        <input id="lem_hasil" type="hidden" name="lem_hasil">
+                        <trix-editor input="lem_hasil">{!! old('lem_hasil', $lembur->lem_hasil) !!}</trix-editor>
                     </div>
-                    <div class="relative mb-10 basis-1/2">
+                    <div class="relative mt-3 mb-10 basis-1/2">
                         <div class="absolute right-0">
                             <button type="submit"
                                 class="px-5 py-1 mr-2 -mb-2 text-sm font-medium text-center text-white rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800">Simpan</button>
