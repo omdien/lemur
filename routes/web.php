@@ -25,6 +25,10 @@ Route::get('/sweat', function () {
     return view('cobasweat');
 });
 
+Route::get('/latihan', function () {
+    return view('latihan');
+});
+
 // halaman login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

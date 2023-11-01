@@ -52,7 +52,7 @@
                                                     <a href="/dashboard/lembur/{{ $lembu->id }}" class="mr-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">visibility</i>
                                                     </a>
-                                                    <a href="#" class="mx-2 text-gray-400 hover:text-gray-100">
+                                                    <a href="/dashboard/lembur/{{ $lembu->id }}/edit" class="mx-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">edit</i>
                                                     </a>
                                                     <a href="/dashboard/lembur/{{ $lembu->id }}/hapus"

@@ -75,7 +75,10 @@ class DashboardLemburController extends Controller
      */
     public function edit(Lembur $lembur)
     {
-        //
+        return view('/dashboard/lemburs/editlem', [
+            'lembur' => $lembur,
+            'supels' => Supel::where('user_id', 1)->get()
+        ]);
     }
 
     /**
@@ -83,7 +86,18 @@ class DashboardLemburController extends Controller
      */
     public function update(Request $request, Lembur $lembur)
     {
-        //
+        Lembur::where('id', $lembur->id)
+            ->update([
+                'supel_id' => $request->supel_id,
+                'lem_dari' => Str::substr(Carbon::create(Str::substr($request->lem_tanggal, 6, 4), $bulan = Str::substr($request->lem_tanggal, 3, 2), Str::substr($request->lem_tanggal, 0, 2)), 0, 10) . " " . Carbon::parse($request->lem_dari)->format('H:i:s'),
+                'lem_sampai' => Str::substr(Carbon::create(Str::substr($request->lem_tanggal, 6, 4), $bulan = Str::substr($request->lem_tanggal, 3, 2), Str::substr($request->lem_tanggal, 0, 2)), 0, 10) . " " . Carbon::parse($request->lem_sampai)->format('H:i:s'),
+                'lem_maksud' => $request->lem_maksud,
+                'lem_tujuan' => $request->lem_tujuan,
+                'lem_tempat' => $request->lem_tempat,
+                'lem_hasil' => $request->lem_hasil
+            ]);
+
+        return redirect('dashboard/lembur')->with('success', 'Butir telah di update');
     }
 
     /**
