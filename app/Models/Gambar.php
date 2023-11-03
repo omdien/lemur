@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lembur extends Model
+class Gambar extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function Gambar()
+    public function Lembur()
     {
-        return $this->hasMany(Gambar::class);
-    }
-
-    public function Supel()
-    {
-        return $this->belongsTo(Supel::class);
+        return $this->belongsTo(Lembur::class);
     }
 }

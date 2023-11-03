@@ -7,9 +7,10 @@ import {
     Timepicker, 
     Input, 
     Ripple,
-    initTE 
+    initTE,
+    Modal 
 } from "tw-elements";
-initTE({ Datepicker, Timepicker, Input, Ripple });
+initTE({ Datepicker, Timepicker, Input, Ripple, Modal });
 
 import Swal from 'sweetalert2';
 window.Swal = Swal;

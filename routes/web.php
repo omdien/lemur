@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardLemburController;
 use App\Http\Controllers\DashboardSuperController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GambarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,11 @@ Route::get('/sweat', function () {
 Route::get('/latihan', function () {
     return view('latihan');
 });
+
+Route::get('/latgam', function () {
+    return view('latgam');
+});
+Route::post('/tamgam', [GambarController::class, 'store'])->middleware('auth');;
 
 // halaman login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

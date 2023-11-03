@@ -37,6 +37,7 @@ class DashboardLemburController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->file('lem_gambar')->store('lem-gambars');
         // $validateData = $request->validate([
         //     'supel_id' => 'required',
         //     'lem_maksud' => 'required',
