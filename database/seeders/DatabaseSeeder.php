@@ -1131,6 +1131,15 @@ class DatabaseSeeder extends Seeder
             'sup_tanggal' => Carbon::parse('2023/4/28'),
             'sup_keterangan' => 'Untuk Melakukan Lembur'
         ]);
+        
+        Supel::create([
+            'user_id' => 1,
+            'sup_nomor' => 'B.1448/SKIPM.MER/KP.440/XI/2023',
+            'sup_bulan' => 11,
+            'sup_tahun' => 2023,
+            'sup_tanggal' => Carbon::parse('2023/1/1'),
+            'sup_keterangan' => 'Melaksanakan  Lembur  Kegiatan Administrasi Keuangan, Pelaporan Kinerja dan kegiatan IT di Lingkup Stasiun Karantina Ikan Pengendalian Mutu dan Keamanan Hasil Perikanan Merak bulan November 2023.'
+        ]);
 
 
 

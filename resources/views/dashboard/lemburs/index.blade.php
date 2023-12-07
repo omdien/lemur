@@ -47,13 +47,19 @@
                                                     {{ Str::substr($lembu->lem_tujuan, 0, 20) . '...' }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ $lembu->lem_tempat }}</td>
+                                                    {{ Str::substr($lembu->lem_tempat, 0, 20) . '...' }}</td>
                                                 <td class="p-3 ">
-                                                    <a href="/dashboard/lembur/{{ $lembu->id }}" class="mr-2 text-gray-400 hover:text-gray-100">
+                                                    <a href="/dashboard/lembur/{{ $lembu->id }}"
+                                                        class="mr-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">visibility</i>
                                                     </a>
-                                                    <a href="/dashboard/lembur/{{ $lembu->id }}/edit" class="mx-2 text-gray-400 hover:text-gray-100">
+                                                    <a href="/dashboard/lembur/{{ $lembu->id }}/edit"
+                                                        class="mx-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">edit</i>
+                                                    </a>
+                                                    <a href="/dashboard/lembur/{{ $lembu->id }}/image"
+                                                        class="mx-2 text-gray-400 hover:text-gray-100">
+                                                        <i class="text-base material-icons-outlined">image</i>
                                                     </a>
                                                     <a href="/dashboard/lembur/{{ $lembu->id }}/hapus"
                                                         class="ml-2 text-gray-400 hover:text-gray-100"

@@ -39,14 +39,19 @@
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     {{ date('d/m/Y', strtotime($supol->sup_tanggal)) }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
-                                                    {{ substr($supol->sup_keterangan, 0, 50) }} ...</td>
+                                                    {!! substr($supol->sup_keterangan, 0, 50) !!} ...</td>
                                                 <td class="p-3 ">
-                                                    <a href="/desktop/super/lihat"
+                                                    <a href="/dashboard/super/{{ $supol->id }}"
                                                         class="mr-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">visibility</i>
                                                     </a>
-                                                    <a href="#" class="mx-2 text-gray-400 hover:text-gray-100">
+                                                    <a href="/dashboard/super/{{ $supol->id }}/edit"
+                                                        class="mx-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">edit</i>
+                                                    </a>
+                                                    <a href="/dashboard/super/{{ $supol->id }}/print"
+                                                        class="mx-2 text-gray-400 hover:text-gray-100">
+                                                        <i class="text-base material-icons-outlined">print</i>
                                                     </a>
                                                     <a href="#" class="ml-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-round">delete_outline</i>

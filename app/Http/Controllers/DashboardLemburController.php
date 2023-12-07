@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lembur;
 use Illuminate\Http\Request;
 use App\Models\Supel;
+use App\Models\Gambar;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -28,7 +29,7 @@ class DashboardLemburController extends Controller
     public function create()
     {
         return view('dashboard.lemburs.tamblem', [
-            'supels' => Supel::where('user_id', 1)->get()
+            'supels' => Supel::where('user_id', auth()->user()->id)->get()
         ]);
     }
 
@@ -98,7 +99,8 @@ class DashboardLemburController extends Controller
             'lembur' => $temp,
             'hari' => $dayList[$day] . ', ' . date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)) . ' Pukul ' . date('H:i', strtotime($temp->lem_dari)) . ' s/d ' . date('H:i', strtotime($temp->lem_sampai)),
             'tglttd' => date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)),
-            'tglspl' => date('d', strtotime($temp->Supel->sup_tanggal)) . ' ' .  $bulanList[date('m', strtotime($temp->Supel->sup_tanggal))] . ' ' .  date('Y', strtotime($temp->Supel->sup_tanggal))
+            'tglspl' => date('d', strtotime($temp->Supel->sup_tanggal)) . ' ' .  $bulanList[date('m', strtotime($temp->Supel->sup_tanggal))] . ' ' .  date('Y', strtotime($temp->Supel->sup_tanggal)),
+            'gambars' => Gambar::where('lembur_id', $temp->id)->get()
         ]);
     }
 
@@ -106,7 +108,7 @@ class DashboardLemburController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Lembur $lembur)
-    {
+    {   
         return view('/dashboard/lemburs/editlem', [
             'lembur' => $lembur,
             'supels' => Supel::where('user_id', 1)->get()

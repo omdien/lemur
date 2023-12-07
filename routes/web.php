@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardLemburController;
+use App\Http\Controllers\DashboardImageController;
 use App\Http\Controllers\DashboardSuperController;
+use App\Http\Controllers\PrintLemburController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\PdfControllerSuper;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +50,15 @@ Route::resource('/dashboard/super', DashboardSuperController::class);
 
 // menghapus lembur
 Route::get('/dashboard/lembur/{lembur:id}/hapus', [DashboardLemburController::class, 'destroy'])->middleware('auth');
+
+//image lembur
+Route::get('/dashboard/lembur/{lembur:id}/image', [DashboardImageController::class,'index'])->middleware('auth');
+
+//tambah image lembur
+Route::put('/dashboard/lembur/{lembur:id}/addimag', [DashboardImageController::class,'store'])->middleware('auth');
+
+// print lembur
+Route::get('/dashboard/lembur/{lembur:id}/print', [PrintLemburController::class, 'index']);
+
+// route pdf
+Route::get('/dashboard/super/{supel:id}/print', [PdfControllerSuper::class, 'index']);
