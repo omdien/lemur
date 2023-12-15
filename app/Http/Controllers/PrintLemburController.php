@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lembur;
 use Codedge\Fpdf\Fpdf\Fpdf;
+use Codedge\Fpdf\Fpdf\PDF_HTML;
 
 class PrintLemburController extends Controller
 {
@@ -13,7 +14,7 @@ class PrintLemburController extends Controller
  
     public function __construct()
     {
-        $this->fpdf = new Fpdf;
+        $this->fpdf = new PDF_HTML;
         
     }
 
@@ -114,7 +115,8 @@ class PrintLemburController extends Controller
         $this->fpdf->Text(45+$xh, 176+$yv, "D.");
         $this->fpdf->Text(53+$xh, 176+$yv, "Hasil yang dicapai");
         $this->fpdf->SetXY(52+$xh, 179.4+$yv);
-        $this->fpdf->MultiCell(152,5,$lembur->lem_hasil) ;
+        // $this->fpdf->MultiCell(152,5,$lembur->lem_hasil) ;
+        $this->fpdf->WriteHTML($lembur->lem_hasil);
         
         $this->fpdf->Output();
     }
