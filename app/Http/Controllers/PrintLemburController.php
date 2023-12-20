@@ -94,27 +94,29 @@ class PrintLemburController extends Controller
         $this->fpdf->Text(72+$xh, 131+$yv, ":");
         $this->fpdf->SetXY(76+$xh, 127.4+$yv);
         $this->fpdf->MultiCell(128,5,$lembur->lem_maksud . ".") ;
+        // $this->fpdf->MultiCell(128,5,$this->fpdf->GetY()) ;
         
-        $this->fpdf->Text(53+$xh, 143+$yv, "Tujuan");
-        $this->fpdf->Text(72+$xh, 143+$yv, ":");
-        $this->fpdf->SetXY(76+$xh, 139.4+$yv);
+        $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+$yv, "Tujuan");
+        $this->fpdf->Text(72+$xh, $this->fpdf->GetY()+$yv, ":");
+        $this->fpdf->SetXY(76+$xh, $this->fpdf->GetY()-3.5+$yv);
         $this->fpdf->MultiCell(128,5,$lembur->lem_tujuan . ".") ;
+        // $this->fpdf->MultiCell(128,5,$this->fpdf->GetY()) ;
 
         // point C
-        $this->fpdf->Text(45+$xh, 150+$yv, "C.");
-        $this->fpdf->Text(53+$xh, 150+$yv, "Waktu dan Tempat");
-        $this->fpdf->Text(53+$xh, 157+$yv, "Waktu");
-        $this->fpdf->Text(72+$xh, 157+$yv, ":");
-        $this->fpdf->Text(77+$xh, 157+$yv, $hari);
-        $this->fpdf->Text(53+$xh, 164+$yv, "Tempat");
-        $this->fpdf->Text(72+$xh, 164+$yv, ":");
-        $this->fpdf->SetXY(76+$xh, 160.4+$yv);
+        $this->fpdf->Text(45+$xh, $this->fpdf->GetY()+$yv, "C.");
+        $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+$yv, "Waktu dan Tempat");
+        $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+7+$yv, "Waktu");
+        $this->fpdf->Text(72+$xh, $this->fpdf->GetY()+7+$yv, ":");
+        $this->fpdf->Text(77+$xh, $this->fpdf->GetY()+7+$yv, $hari);
+        $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+14+$yv, "Tempat");
+        $this->fpdf->Text(72+$xh, $this->fpdf->GetY()+14+$yv, ":");
+        $this->fpdf->SetXY(76+$xh, $this->fpdf->GetY()+10.8+$yv);
         $this->fpdf->MultiCell(128,5,$lembur->lem_tempat) ;
 
         // point D
-        $this->fpdf->Text(45+$xh, 176+$yv, "D.");
-        $this->fpdf->Text(53+$xh, 176+$yv, "Hasil yang dicapai");
-        $this->fpdf->SetXY(52+$xh, 179.4+$yv);
+        $this->fpdf->Text(45+$xh, $this->fpdf->GetY()+$yv, "D.");
+        $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+$yv, "Hasil yang dicapai");
+        $this->fpdf->SetXY(52+$xh, $this->fpdf->GetY()+3.4+$yv);
         // $this->fpdf->MultiCell(152,5,$lembur->lem_hasil) ;
         $this->fpdf->WriteHTML($lembur->lem_hasil);
         
