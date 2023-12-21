@@ -68,6 +68,7 @@ class DashboardLemburController extends Controller
     public function show($id)
     {
         $temp = Lembur::find($id);
+        // dd(Gambar::where('lembur_id', $temp->id)->count());
         $tanggal = '2015-06-03';
         $day = date('D', strtotime($temp->lem_dari));
         $dayList = array(
@@ -100,7 +101,8 @@ class DashboardLemburController extends Controller
             'hari' => $dayList[$day] . ', ' . date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)) . ' Pukul ' . date('H:i', strtotime($temp->lem_dari)) . ' s/d ' . date('H:i', strtotime($temp->lem_sampai)),
             'tglttd' => date('d', strtotime($temp->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($temp->lem_dari)),
             'tglspl' => date('d', strtotime($temp->Supel->sup_tanggal)) . ' ' .  $bulanList[date('m', strtotime($temp->Supel->sup_tanggal))] . ' ' .  date('Y', strtotime($temp->Supel->sup_tanggal)),
-            'gambars' => Gambar::where('lembur_id', $temp->id)->get()
+            'gambars' => Gambar::where('lembur_id', $temp->id)->get(),
+            'gambCount' => Gambar::where('lembur_id', $temp->id)->count(),
         ]);
     }
 

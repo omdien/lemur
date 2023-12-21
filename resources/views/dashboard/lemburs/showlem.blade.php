@@ -97,17 +97,22 @@
                         {!! $lembur->lem_hasil !!}
                     </div>
                 </div>
+                @if ($gambCount <> 0)
+                <div class="container grid grid-cols-12 grid-rows-1 lg:mx-auto lg:w-4/6 mt-5">
+                    <div class="py-1 text-left">E</div>
+                    <div class="col-span-11 py-1 text-left  font-semibold">Screenshot/Photo Kegiatan</div>
+                </div>
+                @endif
                 <div class="container grid grid-cols-12 grid-rows-1 lg:mx-auto lg:w-4/6 mt-4">
                     <div class="py-1 text-center"></div>
                     <div class="col-span-11 py-1 text-justify">
                         @foreach ($gambars as $gambar)
-                            <div>
+                            <div class="mb-5">
                                 <img src="{{ asset('storage/' . $gambar->lem_gambar) }}" alt="">
                             </div>
                         @endforeach
                     </div>
                 </div>
-
 
                 <div class="container grid grid-cols-12 grid-rows-1 mt-5 lg:mx-auto lg:w-4/6">
                     <div class="col-span-6 py-1 text-center"></div>

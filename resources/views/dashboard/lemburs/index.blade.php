@@ -61,6 +61,10 @@
                                                         class="mx-2 text-gray-400 hover:text-gray-100">
                                                         <i class="text-base material-icons-outlined">image</i>
                                                     </a>
+                                                    <a href="/dashboard/lembur/{{ $lembu->id }}/print"
+                                                        class="mx-2 text-gray-400 hover:text-gray-100">
+                                                        <i class="text-base material-icons-outlined">print</i>
+                                                    </a>
                                                     <a href="/dashboard/lembur/{{ $lembu->id }}/hapus"
                                                         class="ml-2 text-gray-400 hover:text-gray-100"
                                                         onclick="confirmation(event)">

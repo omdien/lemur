@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Lembur;
+use App\Models\Gambar;
 use Codedge\Fpdf\Fpdf\Fpdf;
 use Codedge\Fpdf\Fpdf\PDF_HTML;
 
@@ -21,7 +22,7 @@ class PrintLemburController extends Controller
     public function index($id) 
     {
         $lembur = Lembur::find($id);
-        
+        $yu = 0;
         $day = date('D', strtotime($lembur->lem_dari));
         $dayList = array(
             'Sun' => 'Minggu',
@@ -48,12 +49,15 @@ class PrintLemburController extends Controller
             '12' => 'Desember',
         );
 
+        $tglttd = date('d', strtotime($lembur->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($lembur->lem_dari));
+
         $tglspl = date('d', strtotime($lembur->Supel->sup_tanggal)). ' ' .  $bulanList[date('m', strtotime($lembur->Supel->sup_tanggal))] . ' ' .  date('Y', strtotime($lembur->Supel->sup_tanggal));
 
         $hari = $dayList[$day] . ', ' . date('d', strtotime($lembur->lem_dari)) . ' ' .  $bulanList[$bulan] . ' ' .  date('Y', strtotime($lembur->lem_dari)) . ' Pukul ' . date('H:i', strtotime($lembur->lem_dari)) . ' s/d ' . date('H:i', strtotime($lembur->lem_sampai));
 
         $xh = -19;
         $yv = 5;
+        $this->fpdf->SetTopMargin(20);
         $this->fpdf->AddPage("P", "A4");
 
         // heeader
@@ -117,9 +121,50 @@ class PrintLemburController extends Controller
         $this->fpdf->Text(45+$xh, $this->fpdf->GetY()+$yv, "D.");
         $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+$yv, "Hasil yang dicapai");
         $this->fpdf->SetXY(52+$xh, $this->fpdf->GetY()+3.4+$yv);
-        // $this->fpdf->MultiCell(152,5,$lembur->lem_hasil) ;
+        $this->fpdf->SetLeftMargin(33);
+        $this->fpdf->SetRightMargin(22);
         $this->fpdf->WriteHTML($lembur->lem_hasil);
-        
+
+        // point E
+        if (Gambar::where('lembur_id', $id)->count()<>0)
+        {
+            if($this->fpdf->GetY()>205) {
+                $this->fpdf->AddPage("P", "A4");
+                // $this->fpdf->SetTopMargin(10);
+            }
+            $gombor = Gambar::where('lembur_id', $id)->get();
+            $this->fpdf->Text(45+$xh, $this->fpdf->GetY()+2+$yv, "E.");
+            $this->fpdf->Text(53+$xh, $this->fpdf->GetY()+2+$yv, "Screenshoot/Photo Kegiatan");
+            $yu = 13;
+            foreach($gombor as $gambar) {
+                $this->fpdf->Image('storage/' . $gambar->lem_gambar,50,$this->fpdf->GetY()+$yu,100);
+                // $this->fpdf->Text($this->fpdf->GetX(),$this->fpdf->GetY()+$yu,'storage/'.$gambar->lem_gambar);
+                $yu = $yu + 60;
+            }
+
+        }
+
+        // ttd
+        if($this->fpdf->GetY()+$yu>200) {
+            $this->fpdf->AddPage("P", "A4");
+            $yu = 0;
+            // $this->fpdf->SetTopMargin(10);
+        }
+        $noSur = 'Merak,'. $tglttd;
+        $lebarHalaman = $lebarHalaman/3*4;
+        $lebarText = $this->fpdf->GetStringWidth($noSur)/2;
+        $this->fpdf->Text($lebarHalaman-$lebarText, $this->fpdf->GetY()+$yv+$yu+12, $noSur);
+        $noSur = 'Yang Melaksanakan Lembur,';
+        $lebarText = $this->fpdf->GetStringWidth($noSur)/2;
+        $this->fpdf->Text($lebarHalaman-$lebarText, $this->fpdf->GetY()+$yv+$yu+17, $noSur);
+        $noSur = $lembur->Supel->User->name;
+        $lebarText = $this->fpdf->GetStringWidth($noSur)/2;
+        $this->fpdf->Text($lebarHalaman-$lebarText, $this->fpdf->GetY()+$yv+$yu+47, $noSur);
+        $noSur = $lembur->Supel->User->nip;
+        $lebarText = $this->fpdf->GetStringWidth($noSur)/2;
+        $this->fpdf->Text($lebarHalaman-$lebarText, $this->fpdf->GetY()+$yv+$yu+52, $noSur);
+
+
         $this->fpdf->Output();
     }
 }
